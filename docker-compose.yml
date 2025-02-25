@@ -1,4 +1,5 @@
-version: 'python:3.9-slim'
+version: '3.9'
+
 services:
   db:
     image: mysql:8.0
@@ -7,8 +8,9 @@ services:
       MYSQL_DATABASE: task_manager
     ports:
       - "3306:3306"
-   networks:
+    networks:
       - app_network
+
   app:
     build: .
     ports:
@@ -23,8 +25,10 @@ services:
       - db
     networks:
       - app_network
-  network:
-      my_networks:
-        driver: bridge
+
+networks:
+  app_network:
+    driver: bridge
+
 
   
