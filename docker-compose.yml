@@ -1,5 +1,15 @@
 version: 'python:3.9-slim'
 services:
+
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: task_manager
+    ports:
+      - "3306:3306"
+   networks:
+      - app_network
   app:
     build: .
     ports:
@@ -12,11 +22,10 @@ services:
       - MYSQL_DB=task_manager
     depends_on:
       - db
+    networks:
+      - app_network
+  network:
+      my_networks:
+        driver: bridge
 
-  db:
-    image: mysql:8.0
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: task_manager
-    ports:
-      - "3306:3306"
+  
