@@ -1,6 +1,5 @@
 version: 'python:3.9-slim'
 services:
-
   db:
     image: mysql:8.0
     environment:
