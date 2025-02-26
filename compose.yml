@@ -1,0 +1,32 @@
+version: '3.9'
+
+services:
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: task_manager
+    ports:
+      - "3306:3306"
+    networks:
+      - app_network
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile  
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=development
+      - MYSQL_HOST=db
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=root
+      - MYSQL_DB=task_manager
+    depends_on:
+      - db
+    networks:
+      - app_network
+networks:
+  app_network:
+    driver: bridge
